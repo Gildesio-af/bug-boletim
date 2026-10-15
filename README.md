@@ -126,8 +126,41 @@ final MEDIA_RECUPERACAO = 5.0
 
 **Impacto:** Alunos com média entre 5.0 e 6.99 agora são classificados corretamente como Recuperação, respeitando as regras da escola.
 
+#### Bug 3: Operador de aprovação estrito demais em `situacao`
+
+**Problema:** A função `situacao` usava o operador `>` (maior estrito) para comparar com `MEDIA_APROVACAO`. Isso fazia com que um aluno com média exatamente igual a 7.0 não fosse considerado Aprovado, caindo na categoria de Recuperação.
+
+**Código original:**
+```groovy
+def situacao(media, mediaAprovacao, mediaRecuperacao) {
+    if (media > mediaAprovacao) {
+        return "Aprovado"
+    } else if (media >= mediaRecuperacao) {
+        return "Recuperação"
+    } else {
+        return "Reprovado"
+    }
+}
+```
+
+**Correção aplicada:** Alteramos o operador para `>=` (maior ou igual):
+
+```groovy
+def situacao(media, mediaAprovacao, mediaRecuperacao) {
+    if (media >= mediaAprovacao) {
+        return "Aprovado"
+    } else if (media >= mediaRecuperacao) {
+        return "Recuperação"
+    } else {
+        return "Reprovado"
+    }
+}
+```
+
+**Impacto:** Alunos com média exatamente 7.0 (como Carla e Diego) agora são classificados corretamente como Aprovado, conforme as regras da escola.
+
 ### Checklist
 
-- [ ] A média de todos os alunos está igual à esperada
-- [ ] A situação de todos os alunos está igual à esperada
-- [ ] Consigo explicar, com minhas palavras, cada bug que corrigi
+- [x] A média de todos os alunos está igual à esperada
+- [x] A situação de todos os alunos está igual à esperada
+- [x] Consigo explicar, com minhas palavras, cada bug que corrigi
