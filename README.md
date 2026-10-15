@@ -77,6 +77,38 @@ primeiro acerto.
   estava errada. Se a explicação não fizer sentido para você, pergunte de
   novo.
 
+### Bugs identificados e corrigidos
+
+#### Bug 1: Íncide do laço incorreto em `calcularMedia`
+
+**Problema:** O laço `for` em `calcularMedia` começava em `i = 1` em vez de `i = 0`, pulando a primeira nota de cada aluno.
+
+**Código original:**
+```groovy
+def calcularMedia(List notas) {
+    def soma = 0
+    for (int i = 1; i < notas.size(); i++) {
+        soma += notas[i]
+    }
+    return soma / notas.size()
+}
+```
+
+**Correção aplicada:** Alteramos o início do laço para `i = 0` (ou, de forma mais idiomática, usar `notas.sum()`):
+
+```groovy
+def calcularMedia(List notas) {
+    def soma = 0
+    for (int i = 0; i < notas.size(); i++) {
+        soma += notas[i]
+    }
+    return soma / notas.size()
+    // ou simplesmente: return notas.sum() / notas.size()
+}
+```
+
+**Impacto:** Corrigiu a média de todos os alunos, que agora consideram as três notas.
+
 ### Checklist
 
 - [ ] A média de todos os alunos está igual à esperada
