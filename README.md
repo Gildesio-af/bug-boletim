@@ -68,7 +68,7 @@ primeiro acerto.
 - **Um código sem erros não é um código correto.** O programa pode rodar
   sem nenhuma mensagem de erro e ainda assim seguir uma regra diferente da
   que a escola definiu.
-- **Dê contexto para a IA.** Ela só sabe o que você mostra a ela. Compare
+- **Dê contexto para a IA.** Ela só conhece o que você mostra a ela. Compare
   as respostas quando você envia apenas o código e quando envia também as
   regras da escola e o resultado esperado descritos neste README.
 - **Preste atenção nos casos de fronteira.** Pense no que deveria acontecer
@@ -79,7 +79,7 @@ primeiro acerto.
 
 ### Bugs identificados e corrigidos
 
-#### Bug 1: Íncide do laço incorreto em `calcularMedia`
+#### Bug 1: Índice do laço incorreto em `calcularMedia`
 
 **Problema:** O laço `for` em `calcularMedia` começava em `i = 1` em vez de `i = 0`, pulando a primeira nota de cada aluno.
 
@@ -108,6 +108,23 @@ def calcularMedia(List notas) {
 ```
 
 **Impacto:** Corrigiu a média de todos os alunos, que agora consideram as três notas.
+
+#### Bug 2: Constante de recuperação incorreta (`MEDIA_RECUPERACAO`)
+
+**Problema:** A constante `MEDIA_RECUPERACAO` estava definida como `6.5`, mas segundo as regras da escola, a média mínima para recuperação é `5.0`. Com o valor errado, alunos com média entre 5.0 e 6.49 estavam sendo classificados como Reprovados em vez de Recuperação.
+
+**Código original:**
+```groovy
+final MEDIA_RECUPERACAO = 6.5
+```
+
+**Correção aplicada:** Alteramos o valor da constante para `5.0`:
+
+```groovy
+final MEDIA_RECUPERACAO = 5.0
+```
+
+**Impacto:** Alunos com média entre 5.0 e 6.99 agora são classificados corretamente como Recuperação, respeitando as regras da escola.
 
 ### Checklist
 
